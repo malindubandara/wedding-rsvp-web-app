@@ -598,7 +598,9 @@ svg {
   color: var(--olive);
   box-shadow: 0 4px 20px #34423212;
   font-size: 11px;
-  transition: background .25s, box-shadow .25s;
+  transition:
+    background 0.25s,
+    box-shadow 0.25s;
 }
 .music-toggle:hover {
   background: #e8eddf;
@@ -645,8 +647,20 @@ svg {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #f5f3e9 0%, #f5f3e9e8 12%, #f5f3e966 45%, #f5f3e90a 75%),
-    linear-gradient(0deg, #f0efe5 0%, #f0efe500 26%, #f0efe51a 85%, #f0efe580 100%);
+    linear-gradient(
+      90deg,
+      #f5f3e9 0%,
+      #f5f3e9e8 12%,
+      #f5f3e966 45%,
+      #f5f3e90a 75%
+    ),
+    linear-gradient(
+      0deg,
+      #f0efe5 0%,
+      #f0efe500 26%,
+      #f0efe500 85%,
+      #f0efe50a 100%
+    );
 }
 .hero-arch {
   position: absolute;
@@ -714,7 +728,14 @@ svg {
     object-position: 50% 0;
   }
   .hero-photo::after {
-    background: linear-gradient(180deg, #faf8f270 0%, #faf8f2b8 24%, #faf8f2e3 50%, #f0efe5f5 100%);
+    background: linear-gradient(
+      180deg,
+      #faf8f20a 0%,
+      #faf8f21f 14%,
+      #faf8f2ad 30%,
+      #faf8f2e3 50%,
+      #f0efe5f5 100%
+    );
   }
   .hero-content {
     margin-inline: auto;
@@ -800,7 +821,7 @@ svg {
   margin-bottom: 4px;
   color: var(--olive);
   font-size: 9px;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .hero-detail-copy strong {
@@ -809,7 +830,7 @@ svg {
   font-size: 21px;
   font-weight: 400;
   line-height: 1.2;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 .hero-detail-copy > span:last-child,
 .hero-detail-copy time > span {
@@ -887,7 +908,10 @@ svg {
   background: #faf8f2b3;
   min-height: 54px;
   text-align: left;
-  transition: background .3s, border-color .3s, transform .3s;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    transform 0.3s;
 }
 .calendar-link svg {
   width: 17px;
@@ -980,7 +1004,7 @@ h2 i {
   border-radius: 50%;
   background: #e8eddf;
   color: var(--olive);
-  animation: heroReveal .7s var(--ease) both;
+  animation: heroReveal 0.7s var(--ease) both;
 }
 .countdown-celebration-icon svg {
   width: 30px;
@@ -2161,7 +2185,7 @@ fieldset {
     padding: 20px;
   }
 }
-@media (max-width: 980px){
+@media (max-width: 980px) {
   .site-nav {
     min-height: 72px;
     padding: 10px 6vw;
@@ -2203,10 +2227,10 @@ fieldset {
     bottom: calc(50% - 2px);
     left: 0;
   }
-  .nav-rsvp-label{
+  .nav-rsvp-label {
     display: none;
   }
-  .nav-rsvp-short{
+  .nav-rsvp-short {
     display: inline;
   }
 }
@@ -2215,16 +2239,47 @@ fieldset {
     scroll-padding-top: 88px;
   }
   .hero {
-    min-height: max(790px, 100svh);
-    padding: 130px 22px 100px;
+    --mobile-face-space: clamp(180px, 53vw, 410px);
+    min-height: 100svh;
+    padding: calc(70px + var(--mobile-face-space)) 16px 76px;
+    background: var(--paper);
+  }
+  .hero-photo {
+    inset: 70px 0 auto;
+    height: clamp(370px, 100vw, 760px);
+  }
+  .hero-photo::after {
+    background: linear-gradient(
+      180deg,
+      #faf8f200 0%,
+      #faf8f200 46%,
+      #faf8f270 55%,
+      #faf8f2eb 84%,
+      var(--paper) 100%
+    );
   }
   .hero-arch {
-    top: 110px;
-    bottom: 75px;
+    top: calc(50px + var(--mobile-face-space));
+    bottom: 48px;
     width: 94%;
   }
+  .hero-content {
+    min-width: 0;
+    max-width: 520px;
+  }
   .hero h1 {
-    font-size: clamp(76px, 15vw, 112px);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: clamp(4px, 1.7vw, 8px);
+    margin: 10px 0 12px;
+    font-size: clamp(36px, 10vw, 60px);
+    line-height: 1.05;
+    white-space: nowrap;
+  }
+  .hero h1 b {
+    margin: 0;
+    font-size: 0.6em;
   }
   .hero-floral {
     width: 240px;
@@ -2236,25 +2291,35 @@ fieldset {
   }
   .hero-floral-right {
     right: -100px;
-    top: 70px;
+    top: clamp(360px, 90vw, 600px);
   }
   .hero-side-note {
     display: none;
   }
   .hero-copy {
-    font-size: 18px;
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .hero-content > .ornament {
+    margin-block: 20px;
   }
   .hero-content > .eyebrow {
     font-size: 8px;
+    line-height: 1.6;
+  }
+  .hero .tiny-star {
+    font-size: 10px;
+    line-height: 1;
   }
   .hero-meta {
     font-size: 10px;
     grid-template-columns: 1fr;
-    width: min(100%, 320px);
+    width: min(calc(100% - 16px), 320px);
   }
   .hero-detail {
-    gap: 10px;
-    padding: 12px 14px;
+    gap: 9px;
+    padding: 8px 12px;
   }
   .hero-date {
     border-right: 0;
@@ -2269,25 +2334,51 @@ fieldset {
     height: 16px;
   }
   .hero-detail-label {
-    margin-bottom: 3px;
-    font-size: 8px;
+    display: none;
   }
   .hero-detail-copy strong {
     font-size: 17px;
   }
   .hero-detail-copy > span:last-child,
   .hero-detail-copy time > span {
-    margin-top: 3px;
+    margin-top: 2px;
     font-size: 10px;
   }
   .hero-actions {
-    gap: 14px;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: min(calc(100% - 16px), 320px);
+    margin: 18px auto 0;
   }
   .hero-actions .primary-button {
-    padding-inline: 18px;
-    font-size: 9px;
-    width: min(100%, 300px);
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 11px;
+    width: 100%;
+    letter-spacing: 0.06em;
+  }
+  .hero-actions .calendar-link {
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 11px;
+  }
+  .hero-actions .calendar-link svg:last-child {
+    display: block;
+    width: 14px;
+    height: 14px;
+  }
+  .hero .scroll-cue {
+    bottom: 16px;
+    gap: 4px;
+    font-size: 7px;
+  }
+  .hero .scroll-cue svg {
+    height: 14px;
   }
   .section-pad {
     padding: 80px 7vw;
@@ -2474,16 +2565,6 @@ fieldset {
   .cover-venue {
     font-size: 8px;
   }
-  .hero-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .hero {
-    min-height: 830px;
-  }
-  .hero h1 {
-    font-size: 75px;
-  }
   .nav-rsvp {
     font-size: 8px;
     padding-inline: 9px;
@@ -2510,6 +2591,12 @@ fieldset {
   }
   .footer h2 {
     font-size: 38px;
+  }
+}
+@media (max-width: 760px) and (max-height: 620px) {
+  .hero-copy,
+  .hero-content > .ornament {
+    display: none;
   }
 }
 @media (hover: none) {
