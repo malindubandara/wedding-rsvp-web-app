@@ -38,9 +38,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Browser writing extensions can inject attributes on either root element.
+  // Suppress those attribute warnings only; descendants still hydrate normally.
   return (
-    <html lang="en">
-      {/* Browser extensions such as Grammarly can add attributes before hydration. */}
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

@@ -3,7 +3,7 @@ export const wedding = {
   date: 'Friday, 27 November 2026',
   calendar: { startDate: '20261127', endDate: '20261128', timeZone: 'Asia/Colombo', utcOffset: '+05:30' },
   venue: { name: 'Vinrich Lake Resort', city: 'Piliyandala, Sri Lanka', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vinrich+Lake+Resort+Piliyandala' },
-  rsvpDeadline: '06 November 2026',
+  rsvpDeadline: '25 October 2026',
   music: { src: '/audio/wedding-piano.wav', volume: 0.18 },
   timeline: [
     // { time: '10:00 AM', title: 'Guest arrival', description: 'Welcome drinks and warm embraces.' },

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   ArrowDown,
   ArrowRight,
@@ -458,6 +459,16 @@ function Nav() {
 function Hero() {
   return (
     <section id="home" className="hero">
+      <div className="hero-photo" aria-hidden="true">
+        <Image
+          src="/img1.jpeg"
+          alt=""
+          fill
+          sizes="(max-width: 760px) 100vw, 60vw"
+          preload
+          className="hero-photo-image"
+        />
+      </div>
       <div className="hero-arch" aria-hidden="true" />
       <BotanicalSprig className="hero-floral hero-floral-left" />
       <BotanicalSprig className="hero-floral hero-floral-right" />

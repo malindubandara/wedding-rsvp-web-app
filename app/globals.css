@@ -630,12 +630,30 @@ svg {
   background: radial-gradient(ellipse at 50% 45%, #fffdf6 0%, #f0efe5 66%);
   text-align: center;
 }
+.hero-photo {
+  position: absolute;
+  inset: 0 0 0 40%;
+  z-index: -2;
+  pointer-events: none;
+}
+.hero-photo-image {
+  object-fit: cover;
+  object-position: 50% 10%;
+}
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #f5f3e9 0%, #f5f3e9e8 12%, #f5f3e966 45%, #f5f3e90a 75%),
+    linear-gradient(0deg, #f0efe5 0%, #f0efe500 26%, #f0efe51a 85%, #f0efe580 100%);
+}
 .hero-arch {
   position: absolute;
   top: 125px;
   bottom: 80px;
-  left: 50%;
-  width: min(740px, 92%);
+  left: calc(clamp(0px, 4vw, 70px) + 344px);
+  width: min(690px, 92%);
   transform: translateX(-50%);
   border: 1px solid #b99b6738;
   border-radius: 50% 50% 0 0 / 42% 42% 0 0;
@@ -680,11 +698,30 @@ svg {
   text-transform: uppercase;
 }
 .hero-content {
-  max-width: 760px;
+  max-width: 640px;
   animation: heroReveal 1.25s var(--ease) both;
   width: 100%;
   position: relative;
   z-index: 1;
+  margin-right: auto;
+  margin-left: clamp(0px, 4vw, 70px);
+}
+@media (max-width: 1050px) {
+  .hero-photo {
+    inset: 0;
+  }
+  .hero-photo-image {
+    object-position: 50% 0;
+  }
+  .hero-photo::after {
+    background: linear-gradient(180deg, #faf8f270 0%, #faf8f2b8 24%, #faf8f2e3 50%, #f0efe5f5 100%);
+  }
+  .hero-content {
+    margin-inline: auto;
+  }
+  .hero-arch {
+    left: 50%;
+  }
 }
 .tiny-star {
   padding: 0 9px;
