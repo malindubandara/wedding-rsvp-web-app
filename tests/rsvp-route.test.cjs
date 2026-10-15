@@ -77,3 +77,28 @@ test('Google errors, login HTML, busy responses and timeouts never become confir
     assert.equal(body.includes('private details'), false)
   }
 })
+
+test('preserves known setup codes and logs safe guidance without leaking upstream content', async () => {
+  for (const code of ['SAVE_FAILED', 'SHEET_ACCESS_ERROR', 'SHEET_HEADERS_MISMATCH', 'CONFIGURATION_ERROR', 'UNAUTHORIZED']) {
+    const logs = []
+    const post = loadTs('app/api/rsvp/route.ts', {
+      process: { env },
+      fetch: async () => Response.json({ ok: false, code, message: 'Private upstream details', secret }),
+      console: { error: message => logs.push(message) },
+    }).POST
+    const response = await post(request())
+    const result = await response.json()
+    assert.equal(result.code, code)
+    assert.equal(result.ok, false)
+    assert.ok(logs.some(line => line.includes(code)))
+    for (const output of [JSON.stringify(result), logs.join(' ')]) {
+      assert.equal(output.includes(secret), false)
+      assert.equal(output.includes('Private upstream details'), false)
+    }
+  }
+})
+
+test('unrecognized upstream codes are not reflected to guests', async () => {
+  const response = await route(async () => Response.json({ ok: false, code: secret }))(request())
+  assert.equal((await response.json()).code, 'UNEXPECTED_SCRIPT_RESPONSE')
+})

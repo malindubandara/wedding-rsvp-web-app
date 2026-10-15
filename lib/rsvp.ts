@@ -11,7 +11,7 @@ export type RsvpFieldErrors = Partial<Record<keyof RsvpFields, string>>
 
 export type RsvpApiResponse =
   | { ok: true; action: 'created' | 'updated' }
-  | { ok: false; message: string; fieldErrors?: RsvpFieldErrors }
+  | { ok: false; message: string; fieldErrors?: RsvpFieldErrors; code?: string }
 
 export const REPLY_KEY_PATTERN = /^[a-f0-9]{64}$/
 

@@ -72,4 +72,16 @@ After setup, submit a test RSVP and verify one row appears. Edit it in the same 
 
 If saving fails, check the two Vercel/local environment variables, matching Script properties, the `/exec` URL, deployment access (**Anyone**), and the Sheet's headers. Check **Apps Script → Executions** and Vercel function logs for failures. Neither endpoint logs guest replies or secrets. A deployment requiring login can return HTML rather than JSON; the invitation treats that as a failed save rather than showing a false confirmation.
 
+For a `SAVE_FAILED` response, select **initializeRsvpSheet** in the Apps Script editor and click **Run**. This checks access and headers without adding an RSVP. The updated script returns more specific codes:
+
+| Code | What to fix |
+| --- | --- |
+| `SHEET_ACCESS_ERROR` | Check `SPREADSHEET_ID` (the ID or full Sheet URL is accepted), authorize the script, and use the account that owns the Sheet. |
+| `SHEET_HEADERS_MISMATCH` | Set the Script property `SHEET_NAME` to an unused name such as `RSVPs_v2`, then run `initializeRsvpSheet`. It creates the required headers without touching the old tab. |
+| `CONFIGURATION_ERROR` | Set the required Script properties. |
+| `UNAUTHORIZED` | Make the server secret and `RSVP_SECRET` match exactly. |
+| `SCRIPT_DEPLOYMENT_ERROR` | Use the deployed `/exec` URL with execute-as **Me** and access **Anyone**. |
+
+After copying an updated `Code.gs`, publish a **New version** through **Deploy → Manage deployments → Edit**. Saving code in the editor does not update an existing web app deployment. Local API changes need a local server restart; Vercel API changes need a fresh deployment. Guests continue to see friendly custom messages; diagnostic codes are available in API responses and server logs.
+
 Apps Script has [execution quotas](https://developers.google.com/apps-script/guides/services/quotas). Busy requests and timeouts show a retry message; the browser keeps the reply key so a retry can update an already-written row. No automatic POST retries are issued.

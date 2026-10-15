@@ -50,8 +50,9 @@ function doPost(event) {
     SpreadsheetApp.flush();
     return jsonReply_({ ok: true, action: updated ? 'updated' : 'created' });
   } catch (error) {
-    console.error('RSVP save failed. Check script properties, sheet headers, and spreadsheet access.');
-    return jsonReply_({ ok: false, code: 'SAVE_FAILED' });
+    var code = error && (error.rsvpCode === 'SHEET_ACCESS_ERROR' || error.rsvpCode === 'SHEET_HEADERS_MISMATCH') ? error.rsvpCode : 'SAVE_FAILED';
+    console.error('RSVP save failed [' + code + ']. Run initializeRsvpSheet in the editor for setup details.');
+    return jsonReply_({ ok: false, code: code });
   } finally {
     if (locked) lock.releaseLock();
   }
@@ -71,8 +72,16 @@ function initializeRsvpSheet() {
 }
 
 function getRsvpSheet_(properties) {
-  var spreadsheet = SpreadsheetApp.openById(properties.getProperty('SPREADSHEET_ID'));
-  var sheetName = properties.getProperty('SHEET_NAME') || 'RSVPs';
+  var spreadsheetId = properties.getProperty('SPREADSHEET_ID').trim();
+  // Accept a copied Sheet URL as well as the ID on its own.
+  var urlId = spreadsheetId.match(/\/spreadsheets\/d\/([A-Za-z0-9_-]+)/);
+  if (urlId) spreadsheetId = urlId[1];
+  var spreadsheet;
+  try { spreadsheet = SpreadsheetApp.openById(spreadsheetId); }
+  catch (error) {
+    throw setupError_('SHEET_ACCESS_ERROR', 'Cannot open the spreadsheet. Check SPREADSHEET_ID and authorize this script using the Google account that owns the Sheet.');
+  }
+  var sheetName = (properties.getProperty('SHEET_NAME') || 'RSVPs').trim() || 'RSVPs';
   var sheet = spreadsheet.getSheetByName(sheetName) || spreadsheet.insertSheet(sheetName);
   if (sheet.getLastRow() === 0) {
     sheet.getRange(1, 1, 1, RSVP_HEADERS.length).setValues([RSVP_HEADERS]).setFontWeight('bold');
@@ -80,10 +89,18 @@ function getRsvpSheet_(properties) {
   } else {
     var headers = sheet.getRange(1, 1, 1, RSVP_HEADERS.length).getValues()[0];
     for (var i = 0; i < RSVP_HEADERS.length; i++) {
-      if (headers[i] !== RSVP_HEADERS[i]) throw new Error('Unexpected sheet headers');
+      if (String(headers[i]).trim().toLowerCase() !== RSVP_HEADERS[i].toLowerCase()) {
+        throw setupError_('SHEET_HEADERS_MISMATCH', 'The RSVP tab has incompatible headers. Set SHEET_NAME to a new unused tab name (for example RSVPs_v2), then run initializeRsvpSheet again. Existing data has not been changed.');
+      }
     }
   }
   return sheet;
+}
+
+function setupError_(code, message) {
+  var error = new Error(message);
+  error.rsvpCode = code;
+  return error;
 }
 
 function validReply_(input) {

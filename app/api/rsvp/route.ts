@@ -8,6 +8,27 @@ function json(data: RsvpApiResponse, status = 200) {
   return Response.json(data, { status, headers: { 'Cache-Control': 'no-store' } })
 }
 
+const scriptFailureHints = {
+  CONFIGURATION_ERROR: 'Set SPREADSHEET_ID and RSVP_SECRET in Apps Script properties.',
+  UNAUTHORIZED: 'The Apps Script RSVP_SECRET must match GOOGLE_APPS_SCRIPT_SECRET.',
+  INVALID_REQUEST: 'Redeploy the current Code.gs as a new Apps Script version.',
+  SHEET_ACCESS_ERROR: 'Run initializeRsvpSheet as the Sheet owner and check SPREADSHEET_ID.',
+  SHEET_HEADERS_MISMATCH: 'The target tab has incompatible headers. Use a new empty tab via SHEET_NAME and run initializeRsvpSheet.',
+  SAVE_FAILED: 'Run initializeRsvpSheet and check Apps Script Executions for the Sheet error.',
+  SCRIPT_HTTP_ERROR: 'Check the Apps Script web app deployment URL and access settings.',
+  SCRIPT_DEPLOYMENT_ERROR: 'The web app did not return JSON. Deploy as Me with access Anyone and use the /exec URL.',
+  UNEXPECTED_SCRIPT_RESPONSE: 'Redeploy the current Code.gs and check the Apps Script deployment URL.',
+} as const
+
+function scriptFailure(code: unknown) {
+  const safeCode = typeof code === 'string' && Object.prototype.hasOwnProperty.call(scriptFailureHints, code)
+    ? code as keyof typeof scriptFailureHints
+    : 'UNEXPECTED_SCRIPT_RESPONSE'
+  // Only known codes and static guidance go into logs, never upstream text.
+  console.error(`RSVP Apps Script ${safeCode}: ${scriptFailureHints[safeCode]}`)
+  return json({ ok: false, message: "We couldn't save your reply. Please try again in a moment.", code: safeCode }, 502)
+}
+
 export async function POST(request: Request) {
   const origin = request.headers.get('origin')
   if (origin && origin !== new URL(request.url).origin) {
@@ -62,9 +83,11 @@ export async function POST(request: Request) {
       cache: 'no-store',
       signal: AbortSignal.timeout(20000),
     })
-    if (!upstream.ok) throw new Error('Upstream HTTP error')
+    if (!upstream.ok) return scriptFailure('SCRIPT_HTTP_ERROR')
     // Apps Script ContentService returns application errors in a JSON envelope.
-    const result: unknown = await upstream.json()
+    let result: unknown
+    try { result = await upstream.json() }
+    catch { return scriptFailure('SCRIPT_DEPLOYMENT_ERROR') }
     if (result && typeof result === 'object') {
       const response = result as Record<string, unknown>
       if (response.ok === true && (response.action === 'created' || response.action === 'updated')) {
@@ -73,8 +96,9 @@ export async function POST(request: Request) {
       if (response.ok === false && response.code === 'BUSY') {
         return json({ ok: false, message: 'A few replies are arriving together. Please try again in a moment.' }, 503)
       }
+      if (response.ok === false) return scriptFailure(response.code)
     }
-    throw new Error('Upstream did not confirm a save')
+    return scriptFailure('UNEXPECTED_SCRIPT_RESPONSE')
   } catch (error) {
     const timeout = error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')
     // Never log the request body, reply key, Google response, or shared secret.
