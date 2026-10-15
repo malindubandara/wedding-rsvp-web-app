@@ -75,6 +75,10 @@ The integration reads environment variables only when someone submits, so the si
 
 ## Verification and troubleshooting
 
+The invitation includes an original 48-second piano loop in `public/audio/wedding-piano.wav`. It begins quietly when a guest opens the invitation and can be paused/resumed using the music button. The opening click starts playback; if the browser blocks it, guests can use the button to start it. No external music service is used.
+
+Change `wedding.music.src` and `wedding.music.volume` in `lib/wedding-config.ts` to use a different local track or volume (0 to 1; default 0.18). The included recording is also mastered quietly for mobile browsers that use device volume. Regenerate it with `node scripts/generate-wedding-music.cjs` if needed.
+
 ```sh
 npm test
 npx tsc --noEmit --incremental false

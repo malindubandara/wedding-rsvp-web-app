@@ -22,6 +22,7 @@ import {
   type WeddingCountdown,
 } from "@/lib/wedding-countdown";
 import RsvpForm from "@/components/rsvp-form";
+import WeddingMusic, { type WeddingMusicHandle } from "@/components/wedding-music";
 
 const navigation = [
   ["home", "Home"],
@@ -833,6 +834,7 @@ function Footer() {
 export default function Page() {
   const [stage, setStage] = useState<"closed" | "opening" | "open">("closed");
   const mainRef = useRef<HTMLElement>(null);
+  const musicRef = useRef<WeddingMusicHandle>(null);
   useEffect(() => {
     if (stage !== "open") return;
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -873,27 +875,33 @@ export default function Page() {
       elements.forEach((element) => element.classList.remove("reveal-pending"));
     };
   }, [stage]);
-  if (stage !== "open")
-    return (
-      <InvitationCover
-        opening={stage === "opening"}
-        onOpen={() => setStage("opening")}
-        onOpened={() => setStage("open")}
-      />
-    );
   return (
-    <div className="invitation-site is-open">
-      <Nav />
-      <main ref={mainRef} tabIndex={-1} aria-label="Wedding invitation">
-        <Hero />
-        <Countdown />
-        {/* <Story /> */}
-        {/* <WeddingDetails /> */}
-        <Timeline />
-        {/* <Gallery /> */}
-        <RSVP />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <WeddingMusic ref={musicRef} visible={stage === "open"} />
+      {stage !== "open" ? (
+        <InvitationCover
+          opening={stage === "opening"}
+          onOpen={() => {
+            musicRef.current?.play();
+            setStage("opening");
+          }}
+          onOpened={() => setStage("open")}
+        />
+      ) : (
+        <div className="invitation-site is-open">
+          <Nav />
+          <main ref={mainRef} tabIndex={-1} aria-label="Wedding invitation">
+            <Hero />
+            <Countdown />
+            {/* <Story /> */}
+            {/* <WeddingDetails /> */}
+            <Timeline />
+            {/* <Gallery /> */}
+            <RSVP />
+          </main>
+          <Footer />
+        </div>
+      )}
+    </>
   );
 }

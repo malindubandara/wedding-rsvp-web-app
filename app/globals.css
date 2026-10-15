@@ -30,7 +30,7 @@ body {
   color: var(--deep);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
-  font-size: 17px;
+  font-size: 16px;
 }
 ::selection {
   background: #d9dfcb;
@@ -73,7 +73,7 @@ svg {
 .eyebrow {
   margin: 0;
   color: var(--olive);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.2em;
   line-height: 1.8;
@@ -161,7 +161,7 @@ svg {
   margin: 0 0 28px;
   color: #68745c;
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: 14px;
   font-style: italic;
 }
 .cover-overline span {
@@ -229,7 +229,7 @@ svg {
 }
 .cover-paper > .eyebrow {
   position: relative;
-  font-size: 11px;
+  font-size: 8px;
   letter-spacing: 0.19em;
 }
 .cover h1 {
@@ -254,7 +254,7 @@ svg {
 .cover-invitation {
   margin: 0;
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: 15px;
   font-style: italic;
   color: var(--taupe);
 }
@@ -276,7 +276,7 @@ svg {
 .cover-date > span {
   min-width: 55px;
   color: var(--olive);
-  font-size: 12px;
+  font-size: 9px;
   letter-spacing: 0.14em;
   line-height: 1.7;
   text-transform: uppercase;
@@ -284,7 +284,7 @@ svg {
 .cover-venue {
   margin: 0;
   color: var(--taupe);
-  font-size: 12px;
+  font-size: 9px;
   letter-spacing: 0.05em;
 }
 .cover-venue span {
@@ -337,13 +337,13 @@ svg {
 }
 .seal > span {
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: -0.05em;
   text-shadow: 0 1px 1px #34423277;
 }
 .seal i {
   padding: 0 3px;
-  font-size: 16px;
+  font-size: 14px;
 }
 .seal > svg {
   width: 10px;
@@ -363,7 +363,7 @@ svg {
   border-bottom: 1px solid #7b896b66;
   background: transparent;
   color: var(--deep);
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   transition:
@@ -383,7 +383,7 @@ svg {
   margin: 15px 0 0;
   color: #7a826e;
   font-family: var(--serif);
-  font-size: 14px;
+  font-size: 12px;
   font-style: italic;
 }
 .cover.is-opening {
@@ -491,7 +491,7 @@ svg {
 }
 .nav-mark > span {
   padding: 0 3px;
-  font-size: 19px;
+  font-size: 17px;
   color: var(--champagne);
   font-style: italic;
 }
@@ -500,7 +500,7 @@ svg {
   margin-top: 7px;
   text-align: center;
   font-family: var(--sans);
-  font-size: 10px;
+  font-size: 7px;
   letter-spacing: 0.25em;
 }
 .site-nav nav {
@@ -511,7 +511,7 @@ svg {
   position: relative;
   padding: 9px 0;
   color: var(--taupe);
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: color 0.25s;
@@ -541,7 +541,7 @@ svg {
   gap: 12px;
   padding: 11px 16px;
   border: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 10px;
   transition:
     background 0.3s,
     border-color 0.3s;
@@ -579,6 +579,44 @@ svg {
 .menu-button svg {
   width: 19px;
   height: 19px;
+}
+.music-toggle {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 12px 16px;
+  border: 1px solid #b99b6780;
+  border-radius: 30px;
+  background: #faf8f2f5;
+  color: var(--olive);
+  box-shadow: 0 4px 20px #34423212;
+  font-size: 11px;
+  transition: background .25s, box-shadow .25s;
+}
+.music-toggle:hover {
+  background: #e8eddf;
+  box-shadow: 0 6px 22px #34423220;
+}
+.music-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+@media (max-width: 760px) {
+  .music-toggle {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding: 12px;
+  }
+  .music-toggle-label {
+    display: none;
+  }
 }
 
 .hero {
@@ -637,7 +675,7 @@ svg {
   top: 48%;
   writing-mode: vertical-rl;
   color: var(--taupe);
-  font-size: 12px;
+  font-size: 9px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
 }
@@ -651,7 +689,7 @@ svg {
 .tiny-star {
   padding: 0 9px;
   color: var(--champagne);
-  font-size: 20px;
+  font-size: 18px;
   vertical-align: middle;
 }
 .hero h1 {
@@ -677,7 +715,7 @@ svg {
   margin: 23px 0 0;
   color: var(--taupe);
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 20px;
   font-style: italic;
 }
 .hero-meta {
@@ -686,7 +724,7 @@ svg {
   align-items: center;
   gap: 0;
   color: var(--deep);
-  font-size: 13px;
+  font-size: 11px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   width: min(100%, 690px);
   margin: 0 auto;
@@ -700,7 +738,7 @@ svg {
   align-items: center;
   gap: 12px;
   min-width: 0;
-  padding: 22px;
+  padding: 18px;
 }
 .hero-date {
   border-right: 1px solid #b99b6755;
@@ -709,8 +747,8 @@ svg {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border: 1px solid #b99b6766;
   border-radius: 50%;
   background: #e8eddf;
@@ -722,18 +760,16 @@ svg {
 }
 .hero-detail-label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   color: var(--olive);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 9px;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
 .hero-detail-copy strong {
   display: block;
-  color: var(--deep);
   font-family: var(--serif);
-  font-size: clamp(21px, 2vw, 25px);
+  font-size: 21px;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -.03em;
@@ -741,16 +777,10 @@ svg {
 .hero-detail-copy > span:last-child,
 .hero-detail-copy time > span {
   display: block;
-  margin-top: 6px;
+  margin-top: 4px;
   color: var(--olive);
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.5;
-}
-.hero-venue {
-  transition: background .3s;
-}
-.hero-venue:hover {
-  background: #e8eddf;
 }
 .hero-meta .hero-venue-arrow {
   width: 14px;
@@ -784,7 +814,7 @@ svg {
   border: 1px solid var(--olive);
   background: var(--olive);
   color: var(--paper);
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.1em;
   transition:
     background 0.3s,
@@ -815,7 +845,7 @@ svg {
   padding: 12px 17px;
   border-bottom: 1px solid #b99b6760;
   color: var(--olive);
-  font-size: 12px;
+  font-size: 10px;
   border: 1px solid #b99b6780;
   background: #faf8f2b3;
   min-height: 54px;
@@ -832,21 +862,6 @@ svg {
   background: #e7ebdf;
   transform: translateY(-2px);
 }
-.calendar-link > span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.calendar-link small {
-  display: block;
-  margin-top: 3px;
-  color: var(--olive);
-  font-size: 11px;
-  font-weight: 400;
-}
-.nav-rsvp-short {
-  display: none;
-}
 .scroll-cue {
   position: absolute;
   bottom: 30px;
@@ -857,7 +872,7 @@ svg {
   gap: 10px;
   transform: translateX(-50%);
   color: var(--taupe);
-  font-size: 11px;
+  font-size: 8px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -896,7 +911,7 @@ h2 i {
   margin-inline: auto;
   color: var(--taupe);
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.65;
 }
 .countdown {
@@ -960,7 +975,7 @@ h2 i {
 }
 .count-unit span {
   color: var(--taupe);
-  font-size: 11px;
+  font-size: 8px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -977,7 +992,7 @@ h2 i {
   color: var(--taupe);
   font-family: var(--serif);
   font-style: italic;
-  font-size: 16px;
+  font-size: 13px;
 }
 .count-footnote svg {
   width: 11px;
@@ -1046,7 +1061,7 @@ h2 i {
 }
 .story-art-frame > .eyebrow {
   position: relative;
-  font-size: 11px;
+  font-size: 8px;
 }
 .story-stamp {
   position: absolute;
@@ -1063,7 +1078,7 @@ h2 i {
   box-shadow: 0 0 0 6px var(--paper);
   background: var(--paper);
   color: var(--olive);
-  font-size: 11px;
+  font-size: 8px;
   line-height: 0.75;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -1078,7 +1093,7 @@ h2 i {
   margin: 21px 0 0;
   color: var(--taupe);
   text-align: center;
-  font-size: 11px;
+  font-size: 8px;
   letter-spacing: 0.17em;
   text-transform: uppercase;
 }
@@ -1092,12 +1107,12 @@ h2 i {
 .story-copy .lead {
   color: var(--deep);
   font-family: var(--serif);
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1.4;
 }
 .story-copy > p:not(.eyebrow):not(.lead) {
   color: var(--taupe);
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.95;
 }
 .signature {
@@ -1125,7 +1140,7 @@ h2 i {
   border-bottom: 1px solid #b99b6770;
   background: transparent;
   color: var(--olive);
-  font-size: 13px;
+  font-size: 11px;
 }
 .text-link svg {
   width: 14px;
@@ -1179,7 +1194,7 @@ h2 i {
   font-size: 37px;
 }
 .event-card .eyebrow {
-  font-size: 11px;
+  font-size: 8px;
   letter-spacing: 0.13em;
 }
 .event-card h3 {
@@ -1194,7 +1209,7 @@ h2 i {
   margin: 0;
   color: var(--taupe);
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.65;
 }
 .event-card dl {
@@ -1208,7 +1223,7 @@ h2 i {
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid #3442320c;
-  font-size: 12px;
+  font-size: 10px;
 }
 .event-card dl div:last-child {
   border: 0;
@@ -1239,7 +1254,7 @@ h2 i {
   border: 1px solid var(--line);
   background: #edf0e5;
   font-family: var(--serif);
-  font-size: 21px;
+  font-size: 19px;
   transition:
     border-color 0.3s,
     background 0.3s;
@@ -1265,7 +1280,7 @@ h2 i {
   margin-top: 5px;
   color: var(--taupe);
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 9px;
 }
 .location-directions {
   display: flex;
@@ -1274,7 +1289,7 @@ h2 i {
   margin-left: auto;
   font-family: var(--sans);
   color: var(--olive);
-  font-size: 12px;
+  font-size: 10px;
   white-space: nowrap;
 }
 .location-directions svg {
@@ -1304,7 +1319,7 @@ h2 i {
 .timeline-heading > p:not(.eyebrow) {
   color: #d2d7c8;
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 17px;
 }
 .timeline-date {
   display: inline-block;
@@ -1312,7 +1327,7 @@ h2 i {
   padding-top: 20px;
   border-top: 1px solid #d1bc9444;
   color: #d1bc94;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.25em;
 }
 .timeline-list {
@@ -1343,7 +1358,7 @@ h2 i {
   border-radius: 50%;
   color: #c4cea9;
   font-family: var(--serif);
-  font-size: 14px;
+  font-size: 12px;
   transition:
     background 0.3s,
     border-color 0.3s;
@@ -1354,7 +1369,7 @@ h2 i {
 }
 .timeline-item time {
   color: #d1bc94;
-  font-size: 12px;
+  font-size: 9px;
   letter-spacing: 0.16em;
 }
 .timeline-item h3 {
@@ -1367,7 +1382,7 @@ h2 i {
   margin: 0;
   color: #c1cbb8;
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.6;
 }
 .schedule-note {
@@ -1376,7 +1391,7 @@ h2 i {
   gap: 8px;
   margin: 0;
   color: #b9c5ac;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.6;
 }
 .schedule-note svg {
@@ -1486,7 +1501,7 @@ h2 i {
   position: absolute;
   bottom: 17px;
   color: #626e55;
-  font-size: 10px;
+  font-size: 7px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
@@ -1498,12 +1513,12 @@ h2 i {
   padding: 19px 7px 21px;
 }
 .memory-caption .eyebrow {
-  font-size: 10px;
+  font-size: 7px;
 }
 .memory-caption h3 {
   margin: 4px 0 0;
   font-family: var(--serif);
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 400;
 }
 .memory-caption > svg {
@@ -1534,7 +1549,7 @@ h2 i {
   border-radius: 30px;
   color: var(--olive);
   font-family: var(--serif);
-  font-size: 14px;
+  font-size: 12px;
   font-style: italic;
 }
 .section-tag svg {
@@ -1544,7 +1559,7 @@ h2 i {
 }
 .rsvp-intro > .eyebrow {
   max-width: 250px;
-  font-size: 11px;
+  font-size: 8px;
 }
 .rsvp-intro h2 {
   font-size: clamp(50px, 6vw, 78px);
@@ -1556,7 +1571,7 @@ h2 i {
 .rsvp-intro > p:not(.eyebrow) {
   color: var(--taupe);
   font-family: var(--serif);
-  font-size: 25px;
+  font-size: 23px;
   line-height: 1.5;
 }
 .rsvp-deadline {
@@ -1564,7 +1579,7 @@ h2 i {
   align-items: center;
   gap: 13px;
   margin-top: 30px;
-  font-size: 12px;
+  font-size: 10px;
   color: var(--taupe);
 }
 .rsvp-deadline > svg {
@@ -1580,7 +1595,7 @@ h2 i {
   display: block;
   margin-top: 4px;
   color: var(--olive);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
 }
 .rsvp-floral {
@@ -1626,13 +1641,13 @@ h2 i {
   border: 1px solid #a960554d;
   background: #fcf1eb;
   color: #974b42;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.6;
 }
 .reply-restored {
   margin: 0;
   color: var(--olive);
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.6;
 }
 .saving-spinner {
@@ -1667,7 +1682,7 @@ h2 i {
 label,
 legend {
   color: var(--deep);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.035em;
 }
@@ -1681,7 +1696,7 @@ textarea {
   border-radius: 2px;
   background: #faf9f4;
   color: var(--deep);
-  font-size: 16px;
+  font-size: 13px;
   transition:
     border-color 0.25s,
     box-shadow 0.25s,
@@ -1690,7 +1705,7 @@ textarea {
 input::placeholder,
 textarea::placeholder {
   color: #85877a;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
 }
 input:focus,
@@ -1759,7 +1774,7 @@ fieldset {
 .attendance-options small {
   display: block;
   margin-top: 5px;
-  font-size: 11px;
+  font-size: 8px;
   font-weight: 400;
   color: var(--taupe);
   letter-spacing: 0;
@@ -1799,7 +1814,7 @@ fieldset {
 }
 .guest-stepper output {
   font-family: var(--serif);
-  font-size: 23px;
+  font-size: 21px;
 }
 .optional {
   font-weight: 400;
@@ -1812,7 +1827,7 @@ fieldset {
 .field-error {
   margin: 8px 0 0;
   color: #974b42;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.5;
 }
 .rsvp-form input[aria-invalid="true"] {
@@ -1829,7 +1844,7 @@ fieldset {
   margin: -8px 0 0;
   color: var(--taupe);
   text-align: center;
-  font-size: 12px;
+  font-size: 9px;
   line-height: 1.7;
 }
 .confirmation {
@@ -1880,7 +1895,7 @@ fieldset {
   margin-bottom: 25px;
   color: var(--taupe);
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.7;
 }
 .celebration-sprinkles {
@@ -1919,7 +1934,7 @@ fieldset {
 }
 .footer > .eyebrow {
   position: relative;
-  font-size: 12px;
+  font-size: 9px;
 }
 .footer h2 {
   position: relative;
@@ -1934,7 +1949,7 @@ fieldset {
   position: relative;
   color: var(--taupe);
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 18px;
   font-style: italic;
 }
 .footer-floral {
@@ -1953,7 +1968,7 @@ fieldset {
   margin-top: 25px;
   padding-bottom: 8px;
   border-bottom: 1px solid #67765355;
-  font-size: 12px;
+  font-size: 10px;
   color: var(--olive);
 }
 .back-to-top svg {
@@ -1973,7 +1988,7 @@ fieldset {
   padding-top: 20px;
   border-top: 1px solid var(--line);
   color: var(--taupe);
-  font-size: 11px;
+  font-size: 8px;
   letter-spacing: 0.04em;
 }
 .footer-bottom > span {
@@ -2076,7 +2091,7 @@ fieldset {
 @media (max-width: 1050px) {
   .nav-rsvp {
     padding: 11px 12px;
-    font-size: 12px;
+    font-size: 9px;
   }
   .site-nav {
     gap: 16px;
@@ -2102,7 +2117,7 @@ fieldset {
   .attendance-options label {
     padding: 12px 8px;
     gap: 6px;
-    font-size: 12px;
+    font-size: 9px;
   }
   .memory-art {
     min-height: 280px;
@@ -2123,7 +2138,7 @@ fieldset {
   }
   .nav-rsvp {
     margin-left: auto;
-    font-size: 12px;
+    font-size: 9px;
     padding: 11px 13px;
   }
   .site-nav nav {
@@ -2145,7 +2160,7 @@ fieldset {
   }
   .site-nav nav.mobile-open a {
     padding: 15px 12px;
-    font-size: 13px;
+    font-size: 11px;
   }
   .site-nav nav.mobile-open a::after {
     bottom: calc(50% - 2px);
@@ -2190,22 +2205,43 @@ fieldset {
     display: none;
   }
   .hero-copy {
-    font-size: 20px;
+    font-size: 18px;
   }
   .hero-content > .eyebrow {
-    font-size: 11px;
+    font-size: 8px;
   }
   .hero-meta {
-    font-size: 12px;
+    font-size: 10px;
     grid-template-columns: 1fr;
-    width: min(100%, 380px);
+    width: min(100%, 320px);
   }
   .hero-detail {
-    padding: 18px 20px;
+    gap: 10px;
+    padding: 12px 14px;
   }
   .hero-date {
     border-right: 0;
     border-bottom: 1px solid #b99b6755;
+  }
+  .hero-detail-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .hero-detail-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .hero-detail-label {
+    margin-bottom: 3px;
+    font-size: 8px;
+  }
+  .hero-detail-copy strong {
+    font-size: 17px;
+  }
+  .hero-detail-copy > span:last-child,
+  .hero-detail-copy time > span {
+    margin-top: 3px;
+    font-size: 10px;
   }
   .hero-actions {
     gap: 14px;
@@ -2213,7 +2249,7 @@ fieldset {
   }
   .hero-actions .primary-button {
     padding-inline: 18px;
-    font-size: 12px;
+    font-size: 9px;
     width: min(100%, 300px);
   }
   .section-pad {
@@ -2223,7 +2259,7 @@ fieldset {
     margin-bottom: 38px;
   }
   .section-intro > p:last-child {
-    font-size: 18px;
+    font-size: 16px;
   }
   .countdown {
     padding-block: 65px;
@@ -2233,7 +2269,7 @@ fieldset {
     padding-inline: 8px;
   }
   .count-unit span {
-    font-size: 10px;
+    font-size: 7px;
     letter-spacing: 0.12em;
   }
   .story {
@@ -2251,7 +2287,7 @@ fieldset {
     right: 0;
     width: 80px;
     height: 80px;
-    font-size: 10px;
+    font-size: 7px;
   }
   .story-copy {
     max-width: 520px;
@@ -2261,7 +2297,7 @@ fieldset {
     display: none;
   }
   .story-copy .lead {
-    font-size: 24px;
+    font-size: 22px;
   }
   .event-grid {
     grid-template-columns: 1fr;
@@ -2286,7 +2322,7 @@ fieldset {
   .location-link {
     padding: 19px 16px;
     gap: 12px;
-    font-size: 19px;
+    font-size: 17px;
     flex-wrap: wrap;
   }
   .location-directions {
@@ -2335,7 +2371,7 @@ fieldset {
     margin-inline: auto;
   }
   .rsvp-intro > p:not(.eyebrow) {
-    font-size: 23px;
+    font-size: 21px;
   }
   .rsvp-deadline {
     justify-content: center;
@@ -2352,7 +2388,7 @@ fieldset {
   }
   .attendance-options label {
     padding: 13px 10px;
-    font-size: 12px;
+    font-size: 10px;
   }
   .confirmation {
     min-height: 520px;
@@ -2375,33 +2411,11 @@ fieldset {
   }
 }
 @media (max-width: 380px) {
-  .cover-date {
-    gap: 10px;
-  }
-  .cover-date strong {
-    padding-inline: 12px;
-  }
-  .cover-date > span {
-    font-size: 11px;
-    min-width: 50px;
-    letter-spacing: .1em;
-  }
-  .hero-detail {
-    gap: 10px;
-    padding: 16px 14px;
-  }
-  .hero-detail-icon {
-    width: 36px;
-    height: 36px;
-  }
-  .hero-detail-copy strong {
-    font-size: 20px;
-  }
   .cover {
     padding-inline: 17px;
   }
   .cover-overline {
-    font-size: 14px;
+    font-size: 12px;
     gap: 10px;
   }
   .cover-paper {
@@ -2412,16 +2426,16 @@ fieldset {
     font-size: 53px;
   }
   .cover-invitation {
-    font-size: 16px;
+    font-size: 13px;
   }
   .cover-paper > .eyebrow {
-    font-size: 10px;
+    font-size: 7px;
   }
   .cover-floral {
     width: 130px;
   }
   .cover-venue {
-    font-size: 11px;
+    font-size: 8px;
   }
   .hero-actions {
     flex-direction: column;
@@ -2434,12 +2448,12 @@ fieldset {
     font-size: 75px;
   }
   .nav-rsvp {
-    font-size: 11px;
+    font-size: 8px;
     padding-inline: 9px;
     gap: 6px;
   }
   .nav-mark {
-    font-size: 25px;
+    font-size: 23px;
   }
   .rsvp-card {
     padding-inline: 16px;
@@ -2449,7 +2463,7 @@ fieldset {
   }
   .attendance-options label {
     padding: 12px 7px;
-    font-size: 12px;
+    font-size: 9px;
   }
   .attendance-options svg {
     display: none;
@@ -2527,7 +2541,7 @@ fieldset {
   input,
   select,
   textarea {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 @media (max-height: 760px) and (max-width: 760px) {
