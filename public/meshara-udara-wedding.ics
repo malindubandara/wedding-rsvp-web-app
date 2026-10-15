@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Meshara and Udara//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:meshara-udara-wedding-20261127@wedding-invitation.local
+DTSTAMP:20261015T000000Z
+DTSTART;VALUE=DATE:20261127
+DTEND;VALUE=DATE:20261128
+SUMMARY:Meshara & Udara's Wedding
+LOCATION:Vinrich Lake Resort\, Piliyandala\, Sri Lanka
+DESCRIPTION:Join us for our wedding celebration. Final timings to follow.
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
