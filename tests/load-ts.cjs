@@ -11,8 +11,8 @@ function loadTs(file, overrides = {}) {
   const module = { exports: {} }
   const context = {
     module, exports: module.exports,
-    require: name => name === '@/lib/rsvp' ? loadTs('lib/rsvp.ts') : require(name),
-    Response, Request, URL, Buffer, AbortSignal, Error,
+    require: name => name.startsWith('@/lib/') ? loadTs(`${name.slice(2)}.ts`) : require(name),
+    Response, Request, URL, URLSearchParams, Buffer, AbortSignal, Error,
     fetch: globalThis.fetch,
     process: { env: {} },
     console: { error() {} },

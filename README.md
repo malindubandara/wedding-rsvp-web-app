@@ -23,7 +23,20 @@ A Next.js invitation hosted on Vercel. RSVP submissions go through `/api/rsvp` t
 
 6. In the editor, select **initializeRsvpSheet** and click **Run**. Authorize your own script to access the spreadsheet. It creates the `RSVPs` tab and its headers. It refuses to overwrite an existing tab with incompatible headers.
 
-The tab has seven columns: **Reply Key Hash**, **Created At (UTC)**, **Updated At (UTC)**, **Name**, **Attendance**, **Guests**, **Notes**. Keep their order and names unchanged. You can use filter views to review replies; avoid sorting or editing the data while replies are being saved. Protect the technical key column from accidental edits. Dates are stored as UTC ISO timestamps; declined replies have zero guests.
+The tab has seven columns: **Reply Key Hash**, **Created At (Sri Lanka)**, **Updated At (Sri Lanka)**, **Name**, **Attendance**, **Guests**, **Notes**. Keep their order and names unchanged. The internal key column is hidden; leave its values intact so guests can edit their replies. Declined replies have zero guests.
+
+Timestamps are saved as real date values and displayed in **Asia/Colombo (UTC+05:30)**, for example `16 Oct 2026, 02:15:30 AM`. The script sets the time zone for the entire spreadsheet, including other tabs. This keeps dates sortable and avoids depending on the Vercel server or Apps Script project's time zone.
+
+The RSVP tab uses a dark sage header, alternating light rows, a frozen header, filters, wider columns, wrapped notes, and green/red attendance cells. Row heights adjust to fit saved replies. Run **initializeRsvpSheet** again whenever you want to refresh this formatting. Existing compatible filters are retained.
+
+### Update an existing RSVP sheet
+
+1. Copy the latest [google-apps-script/Code.gs](google-apps-script/Code.gs) into your Apps Script editor and save it. Keep your current Script properties.
+2. Select **initializeRsvpSheet** and click **Run**. It recognizes the previous `Created At (UTC)` / `Updated At (UTC)` headers, converts ISO UTC timestamps into real date cells, changes the headers to Sri Lanka time, and styles existing replies. Guest details and original creation instants are preserved. Running it again does not shift dates a second time. Unrecognized manually entered date text is left untouched.
+3. Update the existing web app through **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. Keep the same deployment URL and current access settings.
+4. Refresh the Sheet to see the new formatting. Submit or edit a reply from the invitation to check the displayed local time. If you kept the same deployment URL and secret, no Vercel environment changes or website redeployment are needed for this script-only update.
+
+The deployed script also upgrades old UTC headers on the next valid submission, but running the initializer first applies the changes immediately without adding a test RSVP. Google references: [spreadsheet time zones](https://developers.google.com/apps-script/reference/spreadsheet/spreadsheet#setSpreadsheetTimeZone(String)), [date formatting and row banding](https://developers.google.com/apps-script/reference/spreadsheet/range).
 
 ## 2. Deploy the Apps Script web app
 

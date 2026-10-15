@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --test tests/rsvp.test.cjs tests/rsvp-route.test.cjs tests/apps-script.test.cjs"
+    "test": "node --test tests/rsvp.test.cjs tests/rsvp-route.test.cjs tests/apps-script.test.cjs tests/wedding-countdown.test.cjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
