@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 import Image from "next/image";
 import {
   ArrowDown,
@@ -10,6 +11,7 @@ import {
   Clock3,
   ExternalLink,
   Heart,
+  LoaderCircle,
   Mail,
   MapPin,
   Menu,
@@ -24,6 +26,8 @@ import {
 } from "@/lib/wedding-countdown";
 import RsvpForm from "@/components/rsvp-form";
 import WeddingMusic, { type WeddingMusicHandle } from "@/components/wedding-music";
+
+const HERO_IMAGE_SRC = "/img1.jpeg";
 
 const navigation = [
   ["home", "Home"],
@@ -134,10 +138,12 @@ function OrnamentalLine({ light = false }: { light?: boolean }) {
 }
 
 function InvitationCover({
+  loading,
   opening,
   onOpen,
   onOpened,
 }: {
+  loading: boolean;
   opening: boolean;
   onOpen: () => void;
   onOpened: () => void;
@@ -146,6 +152,7 @@ function InvitationCover({
     <section
       className={`cover ${opening ? "is-opening" : ""}`}
       aria-label="Wedding invitation cover"
+      aria-busy={loading}
       onAnimationEnd={(event) => {
         if (
           opening &&
@@ -193,7 +200,7 @@ function InvitationCover({
         <button
           className="seal"
           onClick={onOpen}
-          disabled={opening}
+          disabled={loading || opening}
           aria-label="Break the seal and open our wedding invitation"
         >
           <span>
@@ -202,9 +209,19 @@ function InvitationCover({
           <Heart aria-hidden="true" />
         </button>
       </div>
-      <button className="open-link" onClick={onOpen} disabled={opening}>
-        {opening ? "A beautiful day awaits" : "Open our invitation"}{" "}
-        <ArrowRight aria-hidden="true" />
+      <button className="open-link" onClick={onOpen} disabled={loading || opening}>
+        <span role="status">
+          {loading
+            ? "Preparing your invitation…"
+            : opening
+              ? "A beautiful day awaits"
+              : "Open our invitation"}
+        </span>{" "}
+        {loading ? (
+          <LoaderCircle className="invitation-loading-icon" aria-hidden="true" />
+        ) : (
+          <ArrowRight aria-hidden="true" />
+        )}
       </button>
       <p className="cover-note">Made with love, just for you</p>
     </section>
@@ -461,11 +478,12 @@ function Hero() {
     <section id="home" className="hero">
       <div className="hero-photo" aria-hidden="true">
         <Image
-          src="/img1.jpeg"
+          src={HERO_IMAGE_SRC}
           alt=""
           fill
-          sizes="(max-width: 760px) 100vw, 60vw"
+          sizes="(max-width: 1050px) 100vw, 60vw"
           preload
+          fetchPriority="high"
           className="hero-photo-image"
         />
       </div>
@@ -843,9 +861,42 @@ function Footer() {
 }
 
 export default function Page() {
-  const [stage, setStage] = useState<"closed" | "opening" | "open">("closed");
+  // Emit the resource hint with the initial cover, before Hero is mounted.
+  preload(HERO_IMAGE_SRC, { as: "image", fetchPriority: "high" });
+  const [heroReady, setHeroReady] = useState(false);
+  const [stage, setStage] = useState<"closed" | "loading" | "opening" | "open">("closed");
   const mainRef = useRef<HTMLElement>(null);
   const musicRef = useRef<WeddingMusicHandle>(null);
+  useEffect(() => {
+    let active = true;
+    const image = new window.Image();
+    const ready = () => {
+      if (active) setHeroReady(true);
+    };
+    image.fetchPriority = "high";
+    image.onload = () => {
+      // Decode while the cover is visible so the hero can paint immediately.
+      void image.decode().then(ready, ready);
+    };
+    // A failed photo must never prevent guests from opening the invitation.
+    image.onerror = ready;
+    image.src = HERO_IMAGE_SRC;
+    return () => {
+      active = false;
+      image.onload = null;
+      image.onerror = null;
+    };
+  }, []);
+  useEffect(() => {
+    if (stage !== "loading") return;
+    if (heroReady) {
+      setStage("opening");
+      return;
+    }
+    // Keep the invitation accessible even on a stalled connection.
+    const timeout = window.setTimeout(() => setStage("opening"), 6000);
+    return () => window.clearTimeout(timeout);
+  }, [stage, heroReady]);
   useEffect(() => {
     if (stage !== "open") return;
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -891,10 +942,11 @@ export default function Page() {
       <WeddingMusic ref={musicRef} visible={stage === "open"} />
       {stage !== "open" ? (
         <InvitationCover
+          loading={stage === "loading"}
           opening={stage === "opening"}
           onOpen={() => {
             musicRef.current?.play();
-            setStage("opening");
+            setStage(heroReady ? "opening" : "loading");
           }}
           onOpened={() => setStage("open")}
         />

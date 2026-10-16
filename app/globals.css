@@ -390,6 +390,14 @@ svg {
   pointer-events: none;
   animation: invitationCoverExit 0.95s ease-in-out forwards;
 }
+.invitation-loading-icon {
+  animation: invitationLoadingSpin 1s linear infinite;
+}
+@keyframes invitationLoadingSpin {
+  to {
+    rotate: 360deg;
+  }
+}
 .cover.is-opening .cover-paper {
   animation: invitationPaperOpen 0.95s var(--ease) forwards;
 }
